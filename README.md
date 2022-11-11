@@ -1,2 +1,2 @@
 # filmes-api
-API para mostrar filmes escrito em Kotlin
+API para mostrar filmes escrito em Kotlin e utilizando Spring
