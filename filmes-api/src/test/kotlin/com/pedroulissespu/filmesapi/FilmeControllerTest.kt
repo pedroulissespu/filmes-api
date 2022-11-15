@@ -106,4 +106,174 @@ class FilmeControllerTest {
         val findById = filmesRepository.findById(filme.id!!)
         Assertions.assertFalse(findById.isPresent)
     }
+
+    @Test
+    fun `test create filme validation error empty titulo`(){
+        val filme = Filme(titulo = "" , atores = "Testes" , genero = "Teste" , classificacao = 1 , preco = "12.99")
+        val json = ObjectMapper().writeValueAsString(filme)
+        filmesRepository.deleteAll()
+        mockMvc.perform(MockMvcRequestBuilders.post("/filmes")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json))
+            .andExpect(MockMvcResultMatchers.status().isBadRequest)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").isNumber)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").isString)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").value(400))
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").value("[titulo] não pode estar em branco !"))
+            .andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    fun `test create filme validation error titulo should be 5 characters`(){
+        val filme = Filme(titulo = "test" , atores = "Testes" , genero = "Teste" , classificacao = 1 , preco = "12.99")
+        val json = ObjectMapper().writeValueAsString(filme)
+        filmesRepository.deleteAll()
+        mockMvc.perform(MockMvcRequestBuilders.post("/filmes")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json))
+            .andExpect(MockMvcResultMatchers.status().isBadRequest)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").isNumber)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").isString)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").value(400))
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").value("[titulo] deve ter no minimo 5 caracteres!"))
+            .andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    fun `test create filme validation error empty atores`(){
+        val filme = Filme(titulo = "test" , atores = "" , genero = "Teste" , classificacao = 1 , preco = "12.99")
+        val json = ObjectMapper().writeValueAsString(filme)
+        filmesRepository.deleteAll()
+        mockMvc.perform(MockMvcRequestBuilders.post("/filmes")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json))
+            .andExpect(MockMvcResultMatchers.status().isBadRequest)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").isNumber)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").isString)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").value(400))
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").value("[atores] não pode estar em branco !"))
+            .andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    fun `test create filme validation error atores should be 4 characters`(){
+        val filme = Filme(titulo = "test" , atores = "tes" , genero = "Teste" , classificacao = 1 , preco = "12.99")
+        val json = ObjectMapper().writeValueAsString(filme)
+        filmesRepository.deleteAll()
+        mockMvc.perform(MockMvcRequestBuilders.post("/filmes")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json))
+            .andExpect(MockMvcResultMatchers.status().isBadRequest)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").isNumber)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").isString)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").value(400))
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").value("[atores] deve ter no minimo 4 caracteres!"))
+            .andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    fun `test create filme validation error empty genero`(){
+        val filme = Filme(titulo = "test" , atores = "" , genero = "Teste" , classificacao = 1 , preco = "12.99")
+        val json = ObjectMapper().writeValueAsString(filme)
+        filmesRepository.deleteAll()
+        mockMvc.perform(MockMvcRequestBuilders.post("/filmes")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json))
+            .andExpect(MockMvcResultMatchers.status().isBadRequest)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").isNumber)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").isString)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").value(400))
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").value("[genero] não pode estar em branco !"))
+            .andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    fun `test create filme validation error genero should be 5 characters`(){
+        val filme = Filme(titulo = "test" , atores = "tes" , genero = "Teste" , classificacao = 1 , preco = "12.99")
+        val json = ObjectMapper().writeValueAsString(filme)
+        filmesRepository.deleteAll()
+        mockMvc.perform(MockMvcRequestBuilders.post("/filmes")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json))
+            .andExpect(MockMvcResultMatchers.status().isBadRequest)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").isNumber)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").isString)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").value(400))
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").value("[genero] deve ter no minimo 5 caracteres"))
+            .andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    fun `test create filme validation error empty classificacao`(){
+        val filme = Filme(titulo = "test" , atores = "" , genero = "Teste" , classificacao = 1 , preco = "12.99")
+        val json = ObjectMapper().writeValueAsString(filme)
+        filmesRepository.deleteAll()
+        mockMvc.perform(MockMvcRequestBuilders.post("/filmes")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json))
+            .andExpect(MockMvcResultMatchers.status().isBadRequest)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").isNumber)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").isString)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").value(400))
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").value("[classificacao] não pode estar em branco !"))
+            .andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    fun `test create filme validation error genero should be 0 classificacao`(){
+        val filme = Filme(titulo = "test" , atores = "tes" , genero = "Teste" , classificacao = 1 , preco = "12.99")
+        val json = ObjectMapper().writeValueAsString(filme)
+        filmesRepository.deleteAll()
+        mockMvc.perform(MockMvcRequestBuilders.post("/filmes")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json))
+            .andExpect(MockMvcResultMatchers.status().isBadRequest)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").isNumber)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").isString)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").value(400))
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").value("[classificacao] deve ter pelo menos uma classificação"))
+            .andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    fun `test create filme validation error empty preco`(){
+        val filme = Filme(titulo = "test" , atores = "" , genero = "Teste" , classificacao = 1 , preco = "12.99")
+        val json = ObjectMapper().writeValueAsString(filme)
+        filmesRepository.deleteAll()
+        mockMvc.perform(MockMvcRequestBuilders.post("/filmes")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json))
+            .andExpect(MockMvcResultMatchers.status().isBadRequest)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").isNumber)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").isString)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").value(400))
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").value("[preco] não pode estar em branco !"))
+            .andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    fun `test create filme validation error genero should be 5 preco`(){
+        val filme = Filme(titulo = "test" , atores = "tes" , genero = "Teste" , classificacao = 1 , preco = "12.99")
+        val json = ObjectMapper().writeValueAsString(filme)
+        filmesRepository.deleteAll()
+        mockMvc.perform(MockMvcRequestBuilders.post("/filmes")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json))
+            .andExpect(MockMvcResultMatchers.status().isBadRequest)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").isNumber)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").isString)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.statusCode").value(400))
+            .andExpect(MockMvcResultMatchers.jsonPath("\$.message").value("[preco] deve ter no minimo 5 caracteres"))
+            .andDo(MockMvcResultHandlers.print())
+    }
 }
