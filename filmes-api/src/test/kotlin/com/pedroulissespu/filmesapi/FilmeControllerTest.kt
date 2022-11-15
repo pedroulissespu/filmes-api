@@ -1,6 +1,8 @@
 package com.pedroulissespu.filmesapi
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.pedroulissespu.filmesapi.model.Filme
+import com.pedroulissespu.filmesapi.repository.FilmesRepository
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

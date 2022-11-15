@@ -1,6 +1,8 @@
-package com.pedroulissespu.filmesapi
+package com.pedroulissespu.filmesapi.controller
 
-import org.aspectj.apache.bcel.Repository
+import com.pedroulissespu.filmesapi.repository.FilmesRepository
+import com.pedroulissespu.filmesapi.model.Filme
+import com.pedroulissespu.filmesapi.service.FilmeService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -15,38 +17,30 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/filmes")
-class FileController(private val repository: FilmesRepository) {
+class FileController(private val service: FilmeService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody filme : Filme) : Filme = repository.save(filme)
+    fun create(@RequestBody filme : Filme) : Filme = service.create(filme)
 
     @GetMapping
-    fun getAll(): List<Filme> = repository.findAll()
+    fun getAll(): List<Filme> = service.getAll()
 
     @GetMapping("/{id}")
     fun getbyId(@PathVariable id: Long) : ResponseEntity<Filme> =
-        repository.findById(id).map{
+        service.getbyId(id).map{
             ResponseEntity.ok(it)
         }.orElse(ResponseEntity.notFound().build())
 
     @PutMapping("/{id}")
     fun update(@PathVariable id : Long, @RequestBody filme : Filme) : ResponseEntity<Filme> =
-        repository.findById(id).map{
-            val filmetoUpdate = it.copy(
-                titulo = filme.titulo,
-                atores = filme.atores,
-                genero = filme.genero,
-                classificacao = filme.classificacao,
-                preco = filme.preco
-            )
-            ResponseEntity.ok(repository.save(filmetoUpdate))
+        service.update(id,filme).map{
+            ResponseEntity.ok(it)
         }.orElse(ResponseEntity.notFound().build())
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long) : ResponseEntity<Void> =
-        repository.findById(id).map{
-            repository.delete(it)
-            ResponseEntity<Void>(HttpStatus.OK)
-        }.orElse(ResponseEntity.notFound().build())
+    fun delete(@PathVariable id: Long) : ResponseEntity<Void> {
+        service.delete(id)
+        return ResponseEntity<Void>(HttpStatus.OK)
+    }
 }
