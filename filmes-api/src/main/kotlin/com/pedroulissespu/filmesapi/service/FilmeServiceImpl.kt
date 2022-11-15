@@ -20,7 +20,7 @@ class FilmeServiceImpl(private val repository: FilmesRepository) : FilmeService 
         Assert.hasLength(filme.genero, "[genero] não pode estar em branco !")
         Assert.isTrue(filme.genero.length >= 5 , "[genero] deve ter no minimo 5 caracteres")
         //Possiveis erros com classificacao
-        Assert.hasLength(filme.classificacao.toString() "[classificacao] não pode estar em branco !")
+        Assert.hasLength(filme.classificacao.toString(), "[classificacao] não pode estar em branco !")
         Assert.isTrue(filme.classificacao.toString().isNotEmpty() , "[classificacao] deve ter pelo menos uma classificação")
         //Possiveis erros com preco
         Assert.hasLength(filme.preco, "[preco] não pode estar em branco !")
