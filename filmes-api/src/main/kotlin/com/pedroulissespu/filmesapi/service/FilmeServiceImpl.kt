@@ -39,7 +39,9 @@ class FilmeServiceImpl(private val repository: FilmesRepository) : FilmeService 
 
     override fun update(id: Long, filme: Filme): Optional<Filme> {
         val optional = getbyId(id)
-        if(optional.isEmpty)Optional.empty<Filme>()
+        if(!optional.isEmpty){
+            return optional
+        }
 
         return optional.map {
             val filmetoUpdate = it.copy(
@@ -56,6 +58,8 @@ class FilmeServiceImpl(private val repository: FilmesRepository) : FilmeService 
     override fun delete(id: Long) {
         repository.findById(id).map{
             repository.delete(it)
-        }.orElseThrow{throw RuntimeException("Id not found $id")}
+        }.orElseThrow{
+            throw RuntimeException("Id not found $id")
+        }
     }
 }

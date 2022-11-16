@@ -1,6 +1,5 @@
 package com.pedroulissespu.filmesapi.controller
 
-import com.pedroulissespu.filmesapi.repository.FilmesRepository
 import com.pedroulissespu.filmesapi.model.Filme
 import com.pedroulissespu.filmesapi.service.FilmeService
 import org.springframework.http.HttpStatus
