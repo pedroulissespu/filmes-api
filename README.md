@@ -1,3 +1,13 @@
-# filmes-api
-### API para mostrar filmes escrito em Kotlin e utilizando Spring
-Ainda se encontra em fase de desenvolvimento !!
+
+# API de Locadora de Filmes em Kotlin
+
+Desenvolvimento de um Projeto de POO em Kotlin e em API Para fins de aprendizagem
+
+
+## Funcionalidades Até o M
+
+- Adicionar Filme;
+- Remover Filme ;
+- Atualizar Filme ;
+- Buscar Filme.
+
