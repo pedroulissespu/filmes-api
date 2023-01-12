@@ -4,7 +4,7 @@
 Desenvolvimento de um Projeto de POO em Kotlin e em API Para fins de aprendizagem
 
 
-## Funcionalidades Até o M
+## Funcionalidades Até o Momento
 
 - Adicionar Filme;
 - Remover Filme ;
